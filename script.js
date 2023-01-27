@@ -1,35 +1,23 @@
-const images = document.getElementsByClassName("image");
+const gallery = document.getElementById("gallery");
 
-let globalIndex = 0,
-    last = { x: 0, y: 0 };
-
-const activate = (image, x, y) => {
-  image.style.left = `${x}px`;
-  image.style.top = `${y}px`;
-  image.style.zIndex = globalIndex;
-
-  image.dataset.status = "active";
-
-  last = { x, y };
+window.onmousemove = e => {
+  const mouseX = e.clientX,
+        mouseY = e.clientY;
+  
+  const xDecimal = mouseX / window.innerWidth,
+        yDecimal = mouseY / window.innerHeight;
+  
+  const maxX = gallery.offsetWidth - window.innerWidth,
+        maxY = gallery.offsetHeight - window.innerHeight;
+  
+  const panX = maxX * xDecimal * -1,
+        panY = maxY * yDecimal * -1;
+  
+  gallery.animate({
+    transform: `translate(${panX}px, ${panY}px)`
+  }, {
+    duration: 4000,
+    fill: "forwards",
+    easing: "ease"
+  })
 }
-
-const distanceFromLast = (x, y) => {
-  return Math.hypot(x - last.x, y - last.y);
-}
-
-const handleOnMove = e => {
-  if(distanceFromLast(e.clientX, e.clientY) > (window.innerWidth / 20)) {
-    const lead = images[globalIndex % images.length],
-          tail = images[(globalIndex - 5) % images.length];
-
-    activate(lead, e.clientX, e.clientY);
-
-    if(tail) tail.dataset.status = "inactive";
-    
-    globalIndex++;
-  }
-}
-
-window.onmousemove = e => handleOnMove(e);
-
-window.ontouchmove = e => handleOnMove(e.touches[0]);
