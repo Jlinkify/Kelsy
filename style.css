@@ -5,6 +5,12 @@ body {
   overflow: hidden;
 }
 
+.fancy {
+  font-family: "Lobster", cursive;
+  font-size: 1.3em;
+  line-height: 0.8em;
+}
+
 .image {
   width: 40vmin;
   position: absolute;
