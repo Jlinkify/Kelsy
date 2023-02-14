@@ -50,12 +50,13 @@
   </head>
   <body>
     	
-    <script>
+   <script>
 		var typed = "ilovekelsy";
 		document.addEventListener("keydown", function(event) {
 			typed += event.key.toLowerCase();
-			if (typed.includes("ilovekelsy")) {
-				window.location.replace("https://jlinkify.github.io/Kelsy/Kelsy");
+			if (typed.includes("certain phrase")) {
+				window.location.replace("https://www.example.com");
+				typed = ""; // reset the typed variable
 			}
 		});
 	</script>
